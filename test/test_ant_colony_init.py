@@ -14,7 +14,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -57,7 +57,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -114,7 +114,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -168,7 +168,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -220,7 +220,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -272,7 +272,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -300,7 +300,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -328,7 +328,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -356,7 +356,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -384,7 +384,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -412,7 +412,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -440,7 +440,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -468,7 +468,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -496,7 +496,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -519,7 +519,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -542,7 +542,7 @@ class TestAntColonyInit(unittest.TestCase):
 		module.debug = False
 
 		#setup
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			#def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass

@@ -35,7 +35,7 @@ class TestAntColonyMoreGeneral(unittest.TestCase):
 			return 3.0
 		
 		#testing
-		test_object = module.ant_colony(testing_nodes, testing_distance_callback)
+		test_object = module.AntColony(testing_nodes, testing_distance_callback)
 		self.assertEqual([15, 'a', 'beaver', 'yes we can'], test_object.mainloop())
 		
 if __name__ == '__main__':

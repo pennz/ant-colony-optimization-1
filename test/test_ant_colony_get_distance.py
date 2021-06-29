@@ -13,7 +13,7 @@ class TestAntColonyGetDistance(unittest.TestCase):
 	def test_correct(self):
 		module.debug = False
 		
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			def __init__(self): pass
 			#def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -51,7 +51,7 @@ class TestAntColonyGetDistance(unittest.TestCase):
 	def test_distance_callback_returns_other_than_int_or_float(self):
 		module.debug = False
 		
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			def __init__(self): pass
 			#def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass

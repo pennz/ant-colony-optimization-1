@@ -116,7 +116,7 @@ class TestAntIntegrationTesting(unittest.TestCase):
 		def mock_distance_callback(start, end):
 			return (2*end - start) ** 2	
 			
-		test_object = module.ant_colony.ant(init_location=0,
+		test_object = module.AntColony.Ant(init_location=0,
 											possible_locations=[x for x in range(0, 10)],
 											pheromone_map=_init_matrix(10, 0),
 											distance_callback=mock_distance_callback,
@@ -167,7 +167,7 @@ class TestAntIntegrationTesting(unittest.TestCase):
 		def mock_distance_callback(start, end):
 			return (2*end - start) ** 2
 			
-		test_object = module.ant_colony.ant(init_location=0,
+		test_object = module.AntColony.Ant(init_location=0,
 											possible_locations=[x for x in range(0, 10)],
 											pheromone_map=_init_matrix(10, 1),
 											distance_callback=mock_distance_callback,
@@ -243,7 +243,7 @@ class TestAntIntegrationTesting(unittest.TestCase):
 				return distance
 			return self.test_distance_matrix[start][end]
 			
-		test_object = module.ant_colony.ant(init_location=0,
+		test_object = module.AntColony.Ant(init_location=0,
 											possible_locations=self.test_nodes.keys(),
 											pheromone_map=_init_matrix(10, 1),
 											distance_callback=_get_distance,

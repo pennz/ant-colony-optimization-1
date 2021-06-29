@@ -13,7 +13,7 @@ class TestAntRun(unittest.TestCase):
 	def test_correct(self):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			def __init__(self):
 				from threading import Thread
 				Thread.__init__(self)

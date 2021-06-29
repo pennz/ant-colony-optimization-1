@@ -14,7 +14,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -44,7 +44,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -100,7 +100,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -166,7 +166,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -232,7 +232,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -298,7 +298,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -371,7 +371,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -445,7 +445,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -519,7 +519,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -594,7 +594,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -668,7 +668,7 @@ class TestAntPickPath(unittest.TestCase):
 		#Note: can't do this in setup because of python2's wonky OOP, doing it in the test instead
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass
@@ -744,7 +744,7 @@ class TestAntPickPath(unittest.TestCase):
 		module.debug = True
 		
 		#inherit from ant so we can call _pick_path correctly
-		class test_empty_object(module.ant_colony.ant):
+		class test_empty_object(module.AntColony.Ant):
 			#override each method EXCEPT _pick_path, to get a clean testing environment
 			def __init__(self): pass
 			def run(self): pass

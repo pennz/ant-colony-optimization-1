@@ -13,7 +13,7 @@ class TestAntColonyInitAnts(unittest.TestCase):
 	def test_correct_first_pass_is_False(self):
 		module.debug = False
 		
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
@@ -44,7 +44,7 @@ class TestAntColonyInitAnts(unittest.TestCase):
 	def test_correct_first_pass_is_True(self):
 		module.debug = False
 		
-		class test_empty_object(module.ant_colony):
+		class test_empty_object(module.AntColony):
 			def __init__(self): pass
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass

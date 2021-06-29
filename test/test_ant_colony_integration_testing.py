@@ -122,7 +122,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 		random.choice = mock_random_choice
 		
 		#testing
-		test_object = module.ant_colony(testing_nodes, testing_distance_callback, ant_count=2)
+		test_object = module.AntColony(testing_nodes, testing_distance_callback, ant_count=2)
 		self.assertEqual([0, 1, 2], test_object.mainloop())
 		
 		#cleanup
@@ -162,7 +162,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 			return 3.0
 		
 		#testing
-		test_object = module.ant_colony(testing_nodes, testing_distance_callback)
+		test_object = module.AntColony(testing_nodes, testing_distance_callback)
 		self.assertEqual([0, 1, 2, 3], test_object.mainloop())
 		
 	def test_medium_run_with_optimal_path(self):
@@ -196,7 +196,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 			return 3.0
 		
 		#testing
-		test_object = module.ant_colony(testing_nodes, testing_distance_callback)
+		test_object = module.AntColony(testing_nodes, testing_distance_callback)
 		#_DEBUG(test_object.mainloop())
 		self.assertEqual([0, 1, 2, 3, 4, 5, 6], test_object.mainloop())
 		
@@ -240,7 +240,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 			return 4.0
 		
 		#testing
-		test_object = module.ant_colony(testing_nodes, testing_distance_callback)
+		test_object = module.AntColony(testing_nodes, testing_distance_callback)
 		#_DEBUG(test_object.mainloop())
 		self.assertEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], test_object.mainloop())
 	
@@ -259,7 +259,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 			}
 		
 		#testing
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		#_DEBUG(test_object.mainloop())
 		
 		#code eval is 1 indexed, rather than 0, so add 1 to each value of the nodes passed back as the solution route
@@ -282,7 +282,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 			9: (37.8672841, -122.5010216)
 			}
 		test_solution = [1, 6, 4, 8, 5, 3, 2, 7, 9, 10]
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		solution = [(x+1) for x in test_object.mainloop()]
 		#_DEBUG(solution)
 		self.assertEqual(test_solution, solution)
@@ -304,7 +304,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 		
 		test_solution = [0, 6, 1, 8, 4, 2, 9, 7, 3, 5]
 		
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		solution = test_object.mainloop()
 		#_DEBUG(solution)
 		self.assertEqual(test_solution, solution)
@@ -325,7 +325,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 		
 		test_solution = [0, 3, 4, 2, 8, 6, 1, 7, 5, 9]
 		
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		solution = test_object.mainloop()
 		#_DEBUG(solution)
 		self.assertEqual(test_solution, solution)
@@ -346,7 +346,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 		
 		test_solution = [0, 8, 2, 9, 1, 3, 5, 4, 6, 7]
 		
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		solution = test_object.mainloop()
 		#_DEBUG(solution)
 		self.assertEqual(test_solution, solution)
@@ -367,7 +367,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 		
 		test_solution = [0, 4, 3, 8, 9, 5, 2, 1, 7, 6]
 		
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		solution = test_object.mainloop()
 		#_DEBUG(solution)
 		self.assertEqual(test_solution, solution)
@@ -388,7 +388,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 		
 		test_solution = [0, 3, 9, 4, 2, 1, 5, 6, 7, 8]
 		
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		solution = test_object.mainloop()
 		#_DEBUG(solution)
 		self.assertEqual(test_solution, solution)
@@ -409,7 +409,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 			
 		test_solution = [0, 5, 9, 6, 7, 8, 1, 2, 3, 4]
 		
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		solution = test_object.mainloop()
 		#_DEBUG(solution)
 		self.assertEqual(test_solution, solution)
@@ -430,7 +430,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 		
 		test_solution = [0, 6, 8, 9, 2, 5, 3, 7, 1, 4]
 		
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		solution = test_object.mainloop()
 		#_DEBUG(solution)
 		self.assertEqual(test_solution, solution)
@@ -450,7 +450,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 			}
 		test_solution = [0, 3, 1, 4, 6, 7, 5, 9, 2, 8]
 		
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		solution = test_object.mainloop()
 		#_DEBUG(solution)
 		self.assertEqual(test_solution, solution)
@@ -471,7 +471,7 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
 		
 		test_solution = [0, 4, 1, 3, 2, 9, 7, 6, 8, 5]
 		
-		test_object = module.ant_colony(mapping, distance_on_earth)
+		test_object = module.AntColony(mapping, distance_on_earth)
 		solution = test_object.mainloop()
 		#_DEBUG(solution)
 		self.assertEqual(test_solution, solution)
