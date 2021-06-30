@@ -1,4 +1,5 @@
 from threading import Thread
+#import numpy as np
 
 class AntColony:
 	class Ant(Thread):
@@ -42,6 +43,9 @@ class AntColony:
 
 		def run(self):
 			"""
+            run the whole route, this ant can get the path from the begining to
+            the target point.
+
 			until self.possible_locations is empty (the ant has visited all nodes)
 				_pick_path() to find a next node to traverse to
 				_traverse() to:
@@ -88,6 +92,10 @@ class AntColony:
 				#increment all zero's, such that they are the smallest non-zero values supported by the system
 				#source: http://stackoverflow.com/a/10426033/5343977
 				def next_up(x):
+					"""
+					next_up get the next/previous value in the floating-point sequence.
+					"""
+
 					import math
 					import struct
 					# NaNs and positive infinity map to themselves.
@@ -112,15 +120,19 @@ class AntColony:
 
 			#cumulative probability behavior, inspired by: http://stackoverflow.com/a/3679747/5343977
 			#randomly choose the next path
-			import random
-			toss = random.random()
+            import random
+			# toss = random.random()
+            return random.choices(attractiveness,
+                                  [attractiveness[possible_next_location]
+                                   / sum_total for possible_next_location in
+                                   acctractiveness])[0]
 
-			cummulative = 0
-			for possible_next_location in attractiveness:
-				weight = (attractiveness[possible_next_location] / sum_total)
-				if toss <= weight + cummulative:
-					return possible_next_location
-				cummulative += weight
+			# cummulative = 0
+			# for possible_next_location in attractiveness:
+			# 	weight = (attractiveness[possible_next_location] / sum_total)
+			# 	if toss <= weight + cummulative:
+			# 		return possible_next_location
+			# 	cummulative += weight
 
 		def _traverse(self, start, end):
 			"""
@@ -352,11 +364,11 @@ class AntColony:
 		"""
 		#allocate new ants on the first pass
 		if self.first_pass:
-			return [self.ant(start, self.nodes.keys(), self.pheromone_map, self._get_distance,
+			return [self.Ant(start, list(self.nodes.keys()), self.pheromone_map, self._get_distance,
 				self.alpha, self.beta, first_pass=True) for x in range(self.ant_count)]
 		#else, just reset them to use on another pass
 		for ant in self.ants:
-			ant.__init__(start, self.nodes.keys(), self.pheromone_map, self._get_distance, self.alpha, self.beta)
+			ant.__init__(start, list(self.nodes.keys()), self.pheromone_map, self._get_distance, self.alpha, self.beta)
 
 	def _update_pheromone_map(self):
 		"""
