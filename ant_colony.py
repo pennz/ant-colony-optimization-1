@@ -439,6 +439,11 @@ class AntColony:
         """
         route = ant.get_route()
 
+        if route is None:
+            print("route is None")
+        else:
+            print("route is Not None")
+
         for i in range(len(route)-1):
             #find the pheromone over the route the ant traversed
             current_pheromone_value = float(self.ant_updated_pheromone_map[route[i]][route[i+1]])
