@@ -8,7 +8,9 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir)
 
 import ant_colony as module
+import pdb
 
+module._DEBUG_pdb_live_debug = False # debugging
 #give distance between two GPS locations
 def distance_on_earth(start, end):
     """

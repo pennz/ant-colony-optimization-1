@@ -2,6 +2,8 @@ from threading import Thread
 import pdb
 #import numpy as np
 
+_DEBUG_pdb_live_debug = False
+
 class AntColony:
     class Ant(Thread):
         def __init__(self, init_location, possible_locations, pheromone_map, distance_callback, alpha, beta, first_pass=False):
@@ -57,9 +59,18 @@ class AntColony:
                 check for new possible optimal solution with this ants latest tour
             """
 
+
             while self.possible_locations:
                 next = self._pick_path()
+
+                if _DEBUG_pdb_live_debug: print("In function run, picked a path", self, next, "and left:", len(self.possible_locations))
+
                 self._traverse(self.location, next)
+
+                if _DEBUG_pdb_live_debug and not self.first_pass:
+                    pdb.set_trace()
+                    print(len(self.possible_locations))
+
 
             self.tour_complete = True
 
@@ -77,6 +88,10 @@ class AntColony:
 
                 return random.choice(self.possible_locations)
 
+            if not hasattr(self,"_DebugCount"): self._DebugCount = 0
+            self._DebugCount += 1
+
+            if _DEBUG_pdb_live_debug and self._DebugCount > 1: pdb.set_trace()
             attractiveness = dict()
             sum_total = 0.0
             #for each possible location, find its attractiveness (it's (pheromone amount)*1/distance [tau*eta, from the algortihm])
@@ -132,16 +147,19 @@ class AntColony:
             import random
             # toss = random.random()
 
-            print(list(attractiveness.keys()),
-                                  [attractiveness[possible_next_location]
-                                   / sum_total for possible_next_location in
-                                   attractiveness.keys()])
-            #pdb.set_trace()
+            if _DEBUG_pdb_live_debug: print("In function _pick_path", self, list(attractiveness.keys()))
 
-            return random.choices(list(attractiveness.keys()),
+
+
+            selected = random.choices(list(attractiveness.keys()),
                                   [attractiveness[possible_next_location]
-                                   / sum_total for possible_next_location in
-                                   attractiveness.keys()])
+                                    for possible_next_location in
+                                    attractiveness])
+
+            if _DEBUG_pdb_live_debug: print(selected[0])
+
+            return selected[0]
+
 
             # cummulative = 0
             # for possible_next_location in attractiveness:
@@ -179,6 +197,8 @@ class AntColony:
         def get_route(self):
             if self.tour_complete:
                 return self.route
+
+            if _DEBUG_pdb_live_debug: pdb.set_trace()
 
             return None
 
@@ -439,11 +459,6 @@ class AntColony:
         """
         route = ant.get_route()
 
-        if route is None:
-            print("route is None")
-        else:
-            print("route is Not None")
-
         for i in range(len(route)-1):
             #find the pheromone over the route the ant traversed
             current_pheromone_value = float(self.ant_updated_pheromone_map[route[i]][route[i+1]])
@@ -478,7 +493,9 @@ class AntColony:
                 ant.join()
 
             for ant in self.ants:
-                #update ant_updated_pheromone_map with this ant's constribution of pheromones along its route
+                # update ant_updated_pheromone_map with this ant's constribution of pheromones along its route
+
+                if _DEBUG_pdb_live_debug and not ant.first_pass and ant._DebugCount >= 1: pdb.set_trace()
                 self._populate_ant_updated_pheromone_map(ant)
 
                 #if we haven't seen any paths yet, then populate for comparisons later
