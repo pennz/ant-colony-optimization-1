@@ -225,6 +225,60 @@ class TestAntColonyIntegrationTesting(unittest.TestCase):
         #_DEBUG(test_object.mainloop())
         self.assertEqual([0, 1, 2, 3, 4, 5, 6], test_object.mainloop())
 
+    def test_long_run_with_optimal_path_MMA(self):
+        module.debug = False
+
+        #setup
+        testing_nodes = {
+                        0 : (0, 0),
+                        1 : (1, 1),
+                        2 : (2, 2),
+                        3 : (3, 3),
+                        4 : (4, 4),
+                        5 : (5, 5),
+                        6 : (6, 6),
+                        7 : (7, 7),
+                        8 : (8, 8),
+                        9 : (9, 9),
+                        }
+
+        #path: 0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9
+        def testing_distance_callback(start, end):
+            if (start == (0, 0) and end == (1, 1)) or (start == (1, 1) and end == (0, 0)):
+                return 2.0
+
+            if (start == (1, 1) and end == (2, 2))or (start == (2, 2) and end == (1, 1)):
+                return 1.0
+
+            if (start == (2, 2) and end == (3, 3))or (start == (3, 3) and end == (2, 2)):
+                return 2.0
+
+            if (start == (3, 3) and end == (4, 4))or (start == (4, 4) and end == (3, 3)):
+                return 1.0
+
+            if (start == (4, 4) and end == (5, 5))or (start == (5, 5) and end == (4, 4)):
+                return 2.0
+
+            if (start == (5, 5) and end == (6, 6))or (start == (6, 6) and end == (5, 5)):
+                return 1.0
+
+            if (start == (6, 6) and end == (7, 7))or (start == (7, 7) and end == (6, 6)):
+                return 2.0
+
+            if (start == (7, 7) and end == (8, 8))or (start == (8, 8) and end == (7, 7)):
+                return 1.0
+
+            if (start == (8, 8) and end == (9, 9))or (start == (9, 9) and end == (8, 8)):
+                return 1.0
+
+            return 4.0
+
+        #testing
+        test_object = module.AntColony(testing_nodes, testing_distance_callback, ant_type="MMA")
+        #_DEBUG(test_object.mainloop())
+        self.assertEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], test_object.mainloop())
+
+
     def test_long_run_with_optimal_path(self):
         module.debug = False
 

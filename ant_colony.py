@@ -6,7 +6,9 @@ _DEBUG_pdb_live_debug = False
 
 class AntColony:
     class Ant(Thread):
-        def __init__(self, init_location, possible_locations, pheromone_map, distance_callback, alpha, beta, first_pass=False):
+        def __init__(self, init_location, possible_locations, pheromone_map,
+                     distance_callback, alpha, beta, first_pass=False,
+                     ant_type="normal"):
             """
             initialized an ant, to traverse the map
 
@@ -43,6 +45,7 @@ class AntColony:
             self._update_route(init_location)
 
             self.tour_complete = False
+            self.ant_type = ant_type
 
         def run(self):
             """
@@ -208,7 +211,9 @@ class AntColony:
 
             return None
 
-    def __init__(self, nodes, distance_callback, start=None, ant_count=50, alpha=.5, beta=1.2,  pheromone_evaporation_coefficient=.40, pheromone_constant=1000.0, iterations=80):
+    def __init__(self, nodes, distance_callback, start=None, ant_count=50,
+        alpha=.5, beta=1.2,  pheromone_evaporation_coefficient=.40,
+        pheromone_constant=1000.0, iterations=80, ant_type="normal"):
         """
         initializes an ant colony (houses a number of worker ants that will traverse a map to find an optimal route as per ACO [Ant Colony Optimization])
         source: https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms
@@ -358,6 +363,7 @@ class AntColony:
         self.ants = self._init_ants(self.start)
         self.shortest_distance = None
         self.shortest_path_seen = None
+        self.ant_type = ant_type
 
     def _get_distance(self, start, end):
         """
@@ -417,15 +423,18 @@ class AntColony:
         by default, all ants start at the first node, 0
         as per problem description: https://www.codeeval.com/open_challenges/90/
         """
+
+        if not hasattr(self, "ant_type"): self.ant_type = "normal"
         #allocate new ants on the first pass
 
         if self.first_pass:
             return [self.Ant(start, list(self.nodes.keys()), self.pheromone_map, self._get_distance,
-                self.alpha, self.beta, first_pass=True) for x in range(self.ant_count)]
+                self.alpha, self.beta, first_pass=True, ant_type=self.ant_type) for x in range(self.ant_count)]
         #else, just reset them to use on another pass
 
         for ant in self.ants:
-            ant.__init__(start, list(self.nodes.keys()), self.pheromone_map, self._get_distance, self.alpha, self.beta)
+            ant.__init__(start, list(self.nodes.keys()), self.pheromone_map,
+            self._get_distance, self.alpha, self.beta, ant_type=self.ant_type)
 
     def _update_pheromone_map(self):
         """

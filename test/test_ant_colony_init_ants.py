@@ -10,6 +10,39 @@ sys.path.insert(0,parentdir)
 import ant_colony as module
 
 class TestAntColonyInitAnts(unittest.TestCase):
+	def test_correct_ant_type_MMA(self):
+		module.debug = False
+
+		class test_empty_object(module.AntColony):
+			def __init__(self): self.ant_type = "MMA"
+			def _get_distance(self, start, end): pass
+			def _init_matrix(self, size, value=None): pass
+			#def _init_ants(self, start): pass
+			def _add_pheromone_value(self, route, pheromone_values): pass
+			def _dissipate_pheromones(self): pass
+			def mainloop(self): pass
+
+		test_object = test_empty_object()
+
+		#setup test environment
+		class mock_ant:
+			def __init__(self, *args, **kwargs):
+				self.ant_init_called = True
+				self.ant_type = kwargs.get("ant_type")
+
+		ant_backup = test_object.Ant
+		test_object.ants = [mock_ant()]
+		test_object.first_pass = False
+		test_object.nodes = dict()
+		test_object.pheromone_map = []
+		test_object.alpha = 0
+		test_object.beta = 0
+
+		#testing
+		test_object._init_ants(start=0)
+
+		self.assertEqual(test_object.ants[0].ant_type, test_object.ant_type)
+
 	def test_correct_first_pass_is_False(self):
 		module.debug = False
 
@@ -26,7 +59,7 @@ class TestAntColonyInitAnts(unittest.TestCase):
 
 		#setup test environment
 		class mock_ant:
-			def __init__(self, *args):
+			def __init__(self, *args, **kwargs):
 				self.ant_init_called = True
 
 		ant_backup = test_object.Ant
@@ -57,7 +90,7 @@ class TestAntColonyInitAnts(unittest.TestCase):
 
 		#setup test environment
 		class mock_ant:
-			def __init__(self, init_location, possible_locations, pheromone_map, distance_callback, alpha, beta, first_pass=False):
+			def __init__(self, init_location, possible_locations, pheromone_map, distance_callback, alpha, beta, first_pass=False, **kwargs):
 				self.first_pass = first_pass
 
 			def is_mock_ant(self):
