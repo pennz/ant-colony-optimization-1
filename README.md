@@ -1,3 +1,6 @@
+# TODO
+- Add Max-Min ant
+
 # ant-colony-optimization
 Implementation of the Ant Colony Optimization algorithm (python)
 
