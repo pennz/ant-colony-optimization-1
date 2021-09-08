@@ -505,7 +505,11 @@ class AntColony:
                 # update ant_updated_pheromone_map with this ant's constribution of pheromones along its route
 
                 if _DEBUG_pdb_live_debug and not ant.first_pass and ant._DebugCount >= 1: pdb.set_trace()
-                self._populate_ant_updated_pheromone_map(ant)
+
+                if self.ant_type == "MMA":
+                    pass # only update for the max one, and also, limit the max/min
+                else:
+                    self._populate_ant_updated_pheromone_map(ant)
 
                 #if we haven't seen any paths yet, then populate for comparisons later
 
