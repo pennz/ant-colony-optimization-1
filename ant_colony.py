@@ -233,11 +233,11 @@ class AntColony:
         pheromone_map -> holds final values of pheromones
             used by ants to determine traversals
             pheromone dissipation happens to these values first, before adding pheromone values from the ants during their traversal
-            (in ant_updated_pheromone_map)
+            (in delta_pheromone_map)
 
-        ant_updated_pheromone_map -> a matrix to hold the pheromone values that the ants lay down
+        delta_pheromone_map -> a matrix to hold the pheromone values that the ants lay down
             not used to dissipate, values from here are added to pheromone_map after dissipation step
-            (reset for each traversal)
+            (reset for/after each traversal)
 
         alpha -> a parameter from the ACO algorithm to control the influence of the amount of pheromone when an ant makes a choice
 
@@ -278,7 +278,7 @@ class AntColony:
         #create matrix for master pheromone map, that records pheromone amounts along routes
         self.pheromone_map = self._init_matrix(len(nodes))
         #create a matrix for ants to add their pheromones to, before adding those to pheromone_map during the update_pheromone_map step
-        self.ant_updated_pheromone_map = self._init_matrix(len(nodes))
+        self.delta_pheromone_map = self._init_matrix(len(nodes))
 
         #distance_callback
 
@@ -436,10 +436,18 @@ class AntColony:
             ant.__init__(start, list(self.nodes.keys()), self.pheromone_map,
             self._get_distance, self.alpha, self.beta, ant_type=self.ant_type)
 
+	public void updateMinMax(){
+		this.max = (1/(1-ag.p)) * (1/GSL);
+		this.min = (max*(1 - Math.pow(ag.pb, 1.0/ag.size)))/((ag.size/2-1) * Math.pow(ag.pb, 1.0/ag.size));
+		if(min>max){
+			min=max;
+		}
+	}
+
     def _update_pheromone_map(self):
         """
         1)    Update self.pheromone_map by decaying values contained therein via the ACO algorithm
-        2)    Add pheromone_values from all ants from ant_updated_pheromone_map
+        2)    Add pheromone_values from all ants from delta_pheromone_map
         called by:
             mainloop()
             (after all ants have traveresed)
@@ -447,7 +455,7 @@ class AntColony:
         #always a square matrix
 
         for start in range(len(self.pheromone_map)):
-            for end in range(len(self.pheromone_map)):
+            for end in range(start+1, len(self.pheromone_map)):
                 #decay the pheromone value at this location
                 #tau_xy <- (1-rho)*tau_xy    (ACO)
                 self.pheromone_map[start][end] = (1-self.pheromone_evaporation_coefficient)*self.pheromone_map[start][end]
@@ -456,12 +464,27 @@ class AntColony:
                 #(ACO)
                 #tau_xy <- tau_xy + delta tau_xy_k
                 #    delta tau_xy_k = Q / L_k
-                self.pheromone_map[start][end] += self.ant_updated_pheromone_map[start][end]
+                self.pheromone_map[start][end] += self.delta_pheromone_map[start][end]
 
-    def _populate_ant_updated_pheromone_map(self, ant):
+                # we can put it to the symetric one, to save resources
+
+                if self.ant_type == "MMA":
+                    if(trail[i][j]>max){
+                        trail[i][j]=max;
+                    }
+
+                    if(trail[i][j]<min){
+                        trail[i][j]=min;
+                    }
+
+                self.pheromone_map[end][start] = self.pheromone_map[start][end]
+
+    def _populate_delta_pheromone_map(self, ant):
         """
-        given an ant, populate ant_updated_pheromone_map with pheromone values according to ACO
+        given an ant, populate delta_pheromone_map with pheromone values according to ACO
         along the ant's route
+        Or we can call it update delta
+
         called from:
             mainloop()
             ( before _update_pheromone_map() )
@@ -470,15 +493,15 @@ class AntColony:
 
         for i in range(len(route)-1):
             #find the pheromone over the route the ant traversed
-            current_pheromone_value = float(self.ant_updated_pheromone_map[route[i]][route[i+1]])
+            current_pheromone_value = float(self.delta_pheromone_map[route[i]][route[i+1]])
 
             #update the pheromone along that section of the route
             #(ACO)
             #    delta tau_xy_k = Q / L_k
             new_pheromone_value = self.pheromone_constant/ant.get_distance_traveled()
 
-            self.ant_updated_pheromone_map[route[i]][route[i+1]] = current_pheromone_value + new_pheromone_value
-            self.ant_updated_pheromone_map[route[i+1]][route[i]] = current_pheromone_value + new_pheromone_value
+            self.delta_pheromone_map[route[i]][route[i+1]] = current_pheromone_value + new_pheromone_value
+            self.delta_pheromone_map[route[i+1]][route[i]] = current_pheromone_value + new_pheromone_value
 
     def mainloop(self):
         """
@@ -489,11 +512,16 @@ class AntColony:
         runs the simulation self.iterations times
         """
 
-        for _ in range(self.iterations):
+        def _ants_traverse(self):
+            """
+            _ants_traverse let the ants run with the given pheromones from
+            last iteration.
+            """
+
             #start the multi-threaded ants, calls ant.run() in a new thread
 
             for ant in self.ants:
-                ant.start()
+                ant.start() # select path according to pheromone
 
             #source: http://stackoverflow.com/a/11968818/5343977
             #wait until the ants are finished, before moving on to modifying shared resources
@@ -501,8 +529,18 @@ class AntColony:
             for ant in self.ants:
                 ant.join()
 
+        def _reset_pheromone_and_ants(self):
+            #reset all ants to default for the next iteration
+            self._init_ants(self.start)
+
+            #reset delta_pheromone_map to record pheromones for ants on next pass
+            self.delta_pheromone_map = self._init_matrix(len(self.nodes), value=0)
+
+        for _ in range(self.iterations):
+            self._ants_traverse()
+
             for ant in self.ants:
-                # update ant_updated_pheromone_map with this ant's constribution of pheromones along its route
+                # update delta_pheromone_map with this ant's constribution of pheromones along its route
 
                 if _DEBUG_pdb_live_debug and not ant.first_pass and ant._DebugCount >= 1: pdb.set_trace()
 
@@ -511,7 +549,10 @@ class AntColony:
                 else:
                     self._populate_ant_updated_pheromone_map(ant)
 
-                #if we haven't seen any paths yet, then populate for comparisons later
+                self._populate_delta_pheromone_map(ant) # for MMA, this step is different. We can abstract it out
+
+                # if we haven't seen any paths yet, then populate for comparisons later
+                # for efficiency, just put it in one place
 
                 if not self.shortest_distance:
                     self.shortest_distance = ant.get_distance_traveled()
@@ -519,25 +560,27 @@ class AntColony:
                 if not self.shortest_path_seen:
                     self.shortest_path_seen = ant.get_route()
 
-                #if we see a shorter path, then save for return
+                # if we see a shorter path, then save for return
 
                 if ant.get_distance_traveled() < self.shortest_distance:
                     self.shortest_distance = ant.get_distance_traveled()
                     self.shortest_path_seen = ant.get_route()
 
-            #decay current pheromone values and add all pheromone values we saw during traversal (from ant_updated_pheromone_map)
-            self._update_pheromone_map()
+            if self.ant_type == "MMA":
+                self.updaate_Min_Max()
 
-            #flag that we finished the first pass of the ants traversal
+            # decay current pheromone values and add all delta pheromone values we saw during traversal (from delta_pheromone_map)
+            self._update_pheromone_map()  # MinMax will be different (here too)
+
+            # flag that we finished the first pass of the ants traversal
 
             if self.first_pass:
                 self.first_pass = False
+            # on the first pass (no pheromones), then we can just choice()
+            # from random library to find the next one
 
-            #reset all ants to default for the next iteration
-            self._init_ants(self.start)
+            self._reset_delta_pheromone_and_ants()
 
-            #reset ant_updated_pheromone_map to record pheromones for ants on next pass
-            self.ant_updated_pheromone_map = self._init_matrix(len(self.nodes), value=0)
 
         #translate shortest path back into callers node id's
         ret = []

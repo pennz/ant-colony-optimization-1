@@ -14,7 +14,7 @@ class TestAntColonyInitAnts(unittest.TestCase):
 		module.debug = False
 
 		class test_empty_object(module.AntColony):
-			def __init__(self): self.ant_type = "MMA"
+            def __init__(self): self.ant_type = "MMA" # so it is an ant colony level thing: only update pheromone of the best ones and limit the max and min thing.
 			def _get_distance(self, start, end): pass
 			def _init_matrix(self, size, value=None): pass
 			#def _init_ants(self, start): pass
